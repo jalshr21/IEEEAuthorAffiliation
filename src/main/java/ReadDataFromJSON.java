@@ -30,16 +30,15 @@ public class ReadDataFromJSON {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
                 link = obj.driver.getCurrentUrl();
                 Set<String> tmp2 = obj.getIEEEKeywords(link);
-                tmp.setIEEEKeywords(String.join("|", tmp2));
+                tmp.setIEEEKeywords(String.join(";", tmp2));
                 List<String> tmp1 = obj.getActualAuthorAffiliation(link);
                 tmp.setActualAuthorAffiliation(String.join("#", tmp1));
                 result.add(tmp);
                 obj.driver.quit();
                 i++;
-                if(i == 5)
+                if(i == 3)
                     break;
             }
             System.out.println("---------------" + i + "-------------");
@@ -88,7 +87,7 @@ public class ReadDataFromJSON {
         for(WebElement el : list) {
             affiliation.add(el.getAttribute("innerHTML"));
         }
-        return String.join("|", affiliation);
+        return String.join(";", affiliation);
     }
 
     private List<String> getAuthorLinks(String link) {
@@ -121,7 +120,7 @@ public class ReadDataFromJSON {
         for(WebElement el : list) {
             jsonString = el.getAttribute("data-tealium_data");
             IEEEKeyWord p = g.fromJson(jsonString, IEEEKeyWord.class);
-            if(p.keywordType == "IEEE Keywords")
+            if(p.keywordType.equals("IEEE Keywords"))
                 keywords.add(p.keyword);
         }
         return keywords;

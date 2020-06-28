@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Collection;
 
 public class RecordToCSV {
-    private static final String CSV_SEPARATOR = ",";
+    private static final String CSV_SEPARATOR = "|";
     public static void writeToCSV(Collection<Record> result)
     {
         try
